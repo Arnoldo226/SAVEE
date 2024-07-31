@@ -1,17 +1,26 @@
+let currentIndex = 0;
 
-var swiper = new Swiper(".mySwiper",{
-    effect: "coverflow",
-    grabCursor:true,
-    centeredSlider:true,
-    loop:true,
-    coverflowEffect: {
-        rotate:60,
-        stretch:0,
-        depth:100,
-        slideshadows:true,
-    },
-    slidesPerView:"auto",
-    pagination:{
-        el:".swiper-pagination"
+function showSlide(index) {
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+    if (index >= totalSlides) {
+        currentIndex = 0;
+    } else if (index < 0) {
+        currentIndex = totalSlides - 1;
+    } else {
+        currentIndex = index;
     }
-})
+    const slider = document.querySelector('.slider');
+    slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+}
+
+function nextSlide() {
+    showSlide(currentIndex + 1);
+}
+
+function prevSlide() {
+    showSlide(currentIndex - 1);
+}
+
+// Initialize the first slide
+showSlide(currentIndex);
